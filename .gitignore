@@ -1,0 +1,27 @@
+# Environments
+.env
+venv/
+ENV/
+env/
+
+# Python / Django
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+backend/staticfiles/
+backend/media/
+
+# Angular / Frontend
+node_modules/
+.angular/
+dist/
+/bazel-out
+/architecture
+
+# IDEs and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
