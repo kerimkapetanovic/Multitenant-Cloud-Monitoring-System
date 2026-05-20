@@ -1,0 +1,46 @@
+<div style="padding: 20px; font-family: Arial, sans-serif;">
+  <h2>Cloud Monitor - Nadzorna Ploča Servera</h2>
+
+  <div *ngIf="loading" style="color: blue; font-weight: bold;">
+    Učitavam servere sa Django backenda...
+  </div>
+
+  <div *ngIf="errorMessage" style="color: red; font-weight: bold; margin-bottom: 15px;">
+    {{ errorMessage }}
+  </div>
+
+  <table *ngIf="!loading" border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: left;">
+    <thead style="background-color: #f2f2f2;">
+      <tr>
+        <th>ID</th>
+        <th>Naziv Servera</th>
+        <th>IP Adresa</th>
+        <th>Status</th>
+        <th>Zadnji Ping</th>
+        <th>Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let server of servers">
+        <td>{{ server.id }}</td>
+        <td><strong>{{ server.name }}</strong></td>
+        <td><code>{{ server.ip_address }}</code></td>
+       <td>
+  <span [style.color]="server.status === 'Online' ? 'green' : 'red'" style="font-weight: bold;">
+    {{ server.status | uppercase }}
+  </span>
+</td>
+        <td>{{ server.last_ping | date:'medium' }}</td>
+        <td>
+          <button (click)="deleteServer(server.id)" style="background-color: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">
+            Delete
+          </button>
+        </td>
+      </tr>
+      
+      <tr *ngIf="servers.length === 0">
+        <td colspan="6" style="text-align: center; color: gray;">No registered servers for this client.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
