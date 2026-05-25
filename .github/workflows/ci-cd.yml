@@ -49,7 +49,7 @@ jobs:
       - name: Install Angular dependencies
         run: |
           cd frontend
-          npm ci
+          npm install
 
       - name: Build Angular application (Compile check)
         run: |
