@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Server } from '../../service/server.service';
-import { ServerService } from '../../service/server.service';
+import { Server, ServerService } from '../../service/server.service';
+import { TenantService } from '../../core/services/tenant';
 @Component({
   selector: 'app-server-dashboard',
   standalone: true,
@@ -11,17 +11,21 @@ import { ServerService } from '../../service/server.service';
 })
 export class ServerDashboardComponent implements OnInit {
   servers: Server[] = [];
-  
+  tenantName: string = '';
   loading: boolean = true;
   errorMessage: string = '';
 
-  constructor(private serverService: ServerService) {}
+  constructor(
+    private serverService: ServerService,
+    private tenantService: TenantService
+  ) { }
 
   ngOnInit(): void {
-    this.loadServer();
+    this.tenantName = this.tenantService.getTenantName();
+    this.loadServers();
   }
 
-  loadServer(): void {
+  loadServers(): void {
     this.loading = true;
     this.serverService.getServers().subscribe({
       next: (data) => {
@@ -43,6 +47,7 @@ export class ServerDashboardComponent implements OnInit {
           this.servers = this.servers.filter(s => s.id !== id);
         },
         error: (err) => {
+          console.error(err);
           alert('Error occurred while deleting the server!');
         }
       });

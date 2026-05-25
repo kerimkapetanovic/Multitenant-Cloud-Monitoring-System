@@ -10,7 +10,9 @@ class Server(models.Model):
     name = models.CharField(max_length=100)
     ip_address = models.GenericIPAddressField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='online')
+    cpu_usage = models.IntegerField(default=0)
+    ram_usage = models.IntegerField(default=0)
     last_ping = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name} ({self.ip_address}) - {self.status}"
+        return f"{self.name} ({self.ip_address})"

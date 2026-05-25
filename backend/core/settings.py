@@ -145,4 +145,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
 ]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://.*\.localhost:4200$",
+]
+
 CORS_ALLOW_CREDENTIALS = True
+PUBLIC_SCHEMA_URLCONF = 'core.urls_public'
+TENANT_APPS_URLCONF = 'core.urls'
